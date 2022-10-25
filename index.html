@@ -7,7 +7,7 @@
     <style>
         body {
             background-color: rgb(103, 59, 180);
-            font-family: fantasy;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             text-align: center;
             user-select: none;
         }
@@ -46,6 +46,7 @@
             transition: color 4s;
         }
         .hidden {
+            /* Hide the element */
             visibility: hidden;
             color:rgb(0, 0, 70);
             width: 0;
@@ -76,11 +77,14 @@
     <script>
         function randomAnswer() {
             var question = document.getElementById('question');
-            if (question.value.length == 0 || !question.value.includes('?')) {
+
+            // Make sure the user typed a question mark
+            if (!question.value.includes('?')) {
                 return;
             }
+            // Change the number 5 here if you want to add more options
             var num = Math.floor(Math.random()*5);
-            // console.log(num);
+
             var message = "";
             if (num == 0) {
                 message = "Yes!"
@@ -90,15 +94,20 @@
                 message = "Reply hazy, try again."
             } else if (num == 3) {
                 message = "Without a doubt."
+            // Can add more options here if you want
             } else {
                 message = "Very doubtful."
             }
-            // console.log(message);
+
+            // This part is for showing the answer
+            // and hiding the 8 ball circle
             var answer = document.getElementById('answer');
             answer.textContent = message;
             answer.classList.remove('hidden');
             var ask = document.getElementById('ask');
             ask.classList.add('hidden');
+
+            // This makes the answer go away after waiting 6 seconds
             setTimeout(function(){
                 answer.classList.add('hidden');
                 ask.classList.remove('hidden');
