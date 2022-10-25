@@ -1,13 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>HEY YOU GUYS!</h1>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Magic 8 Ball</title>
+    <style>
+        body {
+            background-color: rgb(103, 59, 180);
+            font-family: fantasy;
+            text-align: center;
+            user-select: none;
+        }
+        h1 {
+            font-size: 64px;
+            margin: 10px;
+            color: rgb(255, 227, 86);
+        }
+        .circle {
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #outer {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle at 120px 120px, #777, #000 25%);
+            margin: auto;
+        }
+        .inner {
+            width: 55%;
+            height: 55%;
+        }
+        .number {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 190px;
+            background-color: white;
+        }
+        .answer {
+            background-color: rgb(0, 0, 70);
+            color: white;
+            font-size: 32px;
+            color: white;
+            /* This allows the text to fade in slowly */
+            transition: color 4s;
+        }
+        .hidden {
+            visibility: hidden;
+            color:rgb(0, 0, 70);
+            width: 0;
+            height: 0;
+        }
+        input {
+            width: 400px;
+            height: 50px;
+            border-radius: 20px;
+            border: 2px solid black;
+            font-size: 32px;
+        }
+        h2 {
+            font-size: 32px;
+            margin: 10px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Magic 8 Ball</h1>
+    <div id="outer" class="circle">
+        <div id="ask" class="inner circle number" onclick="randomAnswer();">8</div>
+        <div id="answer" class="inner circle answer hidden"></div>
+    </div>
+    <h2>What's your question?</h2>
+    <input id="question" type="text" spellcheck="false">
+    <script>
+        function randomAnswer() {
+            var question = document.getElementById('question');
+            if (question.value.length == 0 || !question.value.includes('?')) {
+                return;
+            }
+            var num = Math.floor(Math.random()*5);
+            // console.log(num);
+            var message = "";
+            if (num == 0) {
+                message = "Yes!"
+            } else if (num == 1) {
+                message = "No!"
+            } else if (num == 2) {
+                message = "Reply hazy, try again."
+            } else if (num == 3) {
+                message = "Without a doubt."
+            } else {
+                message = "Very doubtful."
+            }
+            // console.log(message);
+            var answer = document.getElementById('answer');
+            answer.textContent = message;
+            answer.classList.remove('hidden');
+            var ask = document.getElementById('ask');
+            ask.classList.add('hidden');
+            setTimeout(function(){
+                answer.classList.add('hidden');
+                ask.classList.remove('hidden');
+            }, 6000);
+        }
+    </script>
+</body>
 </html>
