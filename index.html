@@ -8,8 +8,8 @@
         body {
             background-color: rgb(103, 59, 180);
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            text-align: center;
-            user-select: none;
+            text-align: center; /* Center all of the text elements on the page  */
+            user-select: none; /* Don't allow the user to highlight text on the page */
         }
         h1 {
             font-size: 64px;
@@ -18,6 +18,7 @@
         }
         .circle {
             border-radius: 50%;
+            /* The following 3 properties are used to center the child element horizontally and vertically */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,8 +26,10 @@
         #outer {
             width: 500px;
             height: 500px;
+            /* I used a radial-gradient to make the white circle on the top left of the 8 ball */
+            /* to imitate a light source shining on it */
             background: radial-gradient(circle at 120px 120px, #777, #000 25%);
-            margin: auto;
+            margin: auto; /* This centers the 8 ball horizontally on the page */
         }
         .inner {
             width: 55%;
@@ -49,6 +52,7 @@
             /* Hide the element */
             visibility: hidden;
             color:rgb(0, 0, 70);
+            /* I make the element have a size of 0 so it takes up no space on the page */
             width: 0;
             height: 0;
         }
@@ -70,17 +74,22 @@
     <h1>Magic 8 Ball</h1>
     <div id="outer" class="circle">
         <div id="ask" class="inner circle number" onclick="randomAnswer();">8</div>
+        <!-- This div will hold the answer that the JavaScript returns -->
+        <!-- Only one of these divs (ask / answer) will be visible at a time -->
         <div id="answer" class="inner circle answer hidden"></div>
     </div>
     <h2>What's your question?</h2>
-    <input id="question" type="text" spellcheck="false">
+    <input id="question" type="text" spellcheck="false"> <!-- This is the element where the user can type their question -->
     <script>
         function randomAnswer() {
-            var question = document.getElementById('question');
+            // This targets the text input element and saves the text that the user has typed into a variable named 'question'
+            var question = document.getElementById('question').value;
 
             // Make sure the user typed a question mark
-            if (!question.value.includes('?')) {
-                return;
+            // If they dit not type a question mark, the script will stop executing
+            // The ! character here means NOT. We refer to it as a "bang", since "exclamation mark" is too long to say.
+            if (!question.includes('?')) {
+                return; // This will make the script stop. No code after here will run if the condition above is true
             }
             // Change the number 5 here if you want to add more options
             var num = Math.floor(Math.random()*5);
@@ -101,10 +110,15 @@
 
             // This part is for showing the answer
             // and hiding the 8 ball circle
+            // This line targets the div with id="answer" and stores it in a variable named "answer"
             var answer = document.getElementById('answer');
+            // This adds the message text (from above) into the div with id="answer"
             answer.textContent = message;
+            // This removes the "hidden" class from the answer element, effectively causing it to appear
             answer.classList.remove('hidden');
+            // This targets the div with id="ask"
             var ask = document.getElementById('ask');
+            // Here I ADD the "hidden" class to the ask div, hiding it
             ask.classList.add('hidden');
 
             // This makes the answer go away after waiting 6 seconds
